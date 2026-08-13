@@ -1,0 +1,453 @@
+/* =============================================
+   SNAKES & LADDERS — CHAOS EDITION
+   board.css — Board, Cells, Player Pieces
+   ============================================= */
+
+/* ---------------------------------------------
+   Board Section
+   --------------------------------------------- */
+#board-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ---------------------------------------------
+   Game Board Container
+   --------------------------------------------- */
+#game-board {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 4px;
+  padding: var(--space-4);
+  background: var(--bg-panel);
+  border-radius: var(--radius-large);
+  border: var(--border-normal);
+  box-shadow: var(--shadow-medium), inset 0 0 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Optional inner texture overlay */
+#game-board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(108, 92, 231, 0.08), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(0, 206, 201, 0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------------------------------------------
+   Individual Board Cells
+   --------------------------------------------- */
+.board-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+  border-radius: var(--radius-small);
+  background: var(--bg-card);
+  border: var(--border-subtle);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  overflow: hidden;
+  cursor: default;
+  user-select: none;
+  z-index: 1;
+}
+
+/* Checkerboard alternating tones */
+.board-cell:nth-child(odd) {
+  background: #26263f;
+}
+.board-cell:nth-child(even) {
+  background: #2c2c4d;
+}
+
+/* Hover effect (desktop only) */
+@media (hover: hover) and (pointer: fine) {
+  .board-cell:hover {
+    transform: scale(1.06);
+    z-index: 2;
+    border-color: var(--border-active);
+    box-shadow: var(--shadow-small);
+    background: #35355a;
+  }
+}
+
+/* Keyboard focus visible */
+.board-cell:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: -2px;
+  z-index: 3;
+}
+
+/* ---------------------------------------------
+   Cell Numbers
+   --------------------------------------------- */
+.cell-number,
+.square-number {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 2px 5px;
+  border-radius: var(--radius-small);
+  line-height: 1;
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Ensure number stays visible on special cells */
+.snake-cell .cell-number,
+.snake-cell .square-number,
+.ladder-cell .cell-number,
+.ladder-cell .square-number,
+.start-cell .cell-number,
+.start-cell .square-number,
+.finish-cell .cell-number,
+.finish-cell .square-number {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------------------------------------
+   Snake Cell
+   --------------------------------------------- */
+.board-cell.snake-cell,
+.board-cell.is-snake {
+  background: linear-gradient(135deg, rgba(225, 112, 85, 0.35), rgba(214, 48, 49, 0.45));
+  border-color: var(--snake-color);
+  box-shadow:
+    inset 0 0 12px rgba(214, 48, 49, 0.4),
+    0 0 8px rgba(214, 48, 49, 0.3);
+}
+
+/* Snake emoji indicator */
+.board-cell.snake-cell::after,
+.board-cell.is-snake::after {
+  content: '🐍';
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  pointer-events: none;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------------------------------------
+   Ladder Cell
+   --------------------------------------------- */
+.board-cell.ladder-cell,
+.board-cell.is-ladder {
+  background: linear-gradient(135deg, rgba(253, 203, 110, 0.35), rgba(0, 184, 148, 0.45));
+  border-color: var(--ladder-color);
+  box-shadow:
+    inset 0 0 12px rgba(253, 203, 110, 0.4),
+    0 0 8px rgba(253, 203, 110, 0.3);
+}
+
+/* Ladder emoji indicator */
+.board-cell.ladder-cell::after,
+.board-cell.is-ladder::after {
+  content: '🪜';
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  pointer-events: none;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------------------------------------
+   Start Cell (Square 1)
+   --------------------------------------------- */
+.board-cell.start-cell {
+  background: linear-gradient(135deg, rgba(0, 206, 201, 0.4), rgba(0, 184, 148, 0.5));
+  border-color: var(--accent-green);
+  box-shadow:
+    inset 0 0 16px rgba(0, 206, 201, 0.4),
+    0 0 12px rgba(0, 206, 201, 0.5);
+}
+
+/* START text indicator */
+.board-cell.start-cell::before {
+  content: 'START';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  opacity: 0.95;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* ---------------------------------------------
+   Finish Cell (Square 100)
+   --------------------------------------------- */
+.board-cell.finish-cell {
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.6), rgba(253, 203, 110, 0.6));
+  border-color: #ffd700;
+  box-shadow:
+    inset 0 0 18px rgba(108, 92, 231, 0.5),
+    0 0 20px rgba(253, 203, 110, 0.6);
+}
+
+/* Trophy emoji indicator */
+.board-cell.finish-cell::after {
+  content: '🏆';
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  font-size: 1.4rem;
+  opacity: 1;
+  pointer-events: none;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------------------------------------
+   Active Cell (Current Move)
+   --------------------------------------------- */
+.board-cell.active-cell {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 15px var(--accent-primary), inset 0 0 10px rgba(108, 92, 231, 0.3);
+  z-index: 4;
+  animation: activePulse 1.2s ease-in-out infinite;
+}
+
+@keyframes activePulse {
+  0%, 100% {
+    box-shadow: 0 0 15px var(--accent-primary), inset 0 0 10px rgba(108, 92, 231, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px var(--accent-primary), inset 0 0 15px rgba(108, 92, 231, 0.5);
+  }
+}
+
+/* ---------------------------------------------
+   Highlighted Cell (Events, Powers, etc.)
+   --------------------------------------------- */
+.board-cell.highlighted-cell {
+  background: rgba(0, 206, 201, 0.35);
+  border-color: var(--accent-secondary);
+  box-shadow:
+    inset 0 0 15px rgba(0, 206, 201, 0.5),
+    0 0 10px rgba(0, 206, 201, 0.4);
+}
+
+/* ---------------------------------------------
+   Moving / Landed States (optional)
+   --------------------------------------------- */
+.board-cell.is-moving {
+  transform: scale(1.04);
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 12px rgba(253, 203, 110, 0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.board-cell.is-landed {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 12px rgba(0, 184, 148, 0.6);
+}
+
+/* ---------------------------------------------
+   Player Pieces
+   --------------------------------------------- */
+.player-piece {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--player-1);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 8px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  scale: 1;
+  animation: pieceAppear 0.3s ease-out;
+}
+
+@keyframes pieceAppear {
+  from {
+    scale: 0.4;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* Player color variants */
+.player-piece.player-1 {
+  background: var(--player-1);
+}
+.player-piece.player-2 {
+  background: var(--player-2);
+}
+.player-piece.player-3 {
+  background: var(--player-3);
+}
+.player-piece.player-4 {
+  background: var(--player-4);
+}
+
+/* Multiple players slots */
+.player-piece.player-slot-1 {
+  top: 10%;
+  left: 10%;
+}
+.player-piece.player-slot-2 {
+  top: 10%;
+  right: 10%;
+  left: auto;
+}
+.player-piece.player-slot-3 {
+  bottom: 10%;
+  left: 10%;
+  top: auto;
+}
+.player-piece.player-slot-4 {
+  bottom: 10%;
+  right: 10%;
+  top: auto;
+  left: auto;
+}
+
+/* Default centered position (if no slot class) */
+.player-piece:not(.player-slot-1):not(.player-slot-2):not(.player-slot-3):not(.player-slot-4) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Ensure animation doesn't override transform */
+@supports (scale: 1) {
+  .player-piece:not(.player-slot-1):not(.player-slot-2):not(.player-slot-3):not(.player-slot-4) {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ---------------------------------------------
+   Responsive Adjustments
+   --------------------------------------------- */
+@media (max-width: 1024px) {
+  #game-board {
+    padding: var(--space-3);
+    gap: 3px;
+  }
+  .board-cell .cell-number,
+  .board-cell .square-number {
+    font-size: 0.65rem;
+    top: 2px;
+    left: 3px;
+    padding: 1px 3px;
+  }
+  .player-piece {
+    width: 20px;
+    height: 20px;
+    border-width: 1.5px;
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #game-board {
+    padding: var(--space-2);
+    gap: 2px;
+  }
+  .board-cell {
+    border-radius: 4px;
+  }
+  .board-cell .cell-number,
+  .board-cell .square-number {
+    font-size: 0.6rem;
+  }
+  .player-piece {
+    width: 18px;
+    height: 18px;
+    border-width: 1px;
+    font-size: 0.5rem;
+  }
+  .board-cell.snake-cell::after,
+  .board-cell.is-snake::after,
+  .board-cell.ladder-cell::after,
+  .board-cell.is-ladder::after {
+    font-size: 0.9rem;
+  }
+  .board-cell.finish-cell::after {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-cell .cell-number,
+  .board-cell .square-number {
+    font-size: 0.55rem;
+    top: 1px;
+    left: 2px;
+    padding: 1px 2px;
+  }
+  .player-piece {
+    width: 16px;
+    height: 16px;
+    border-width: 1px;
+    font-size: 0.45rem;
+  }
+  .board-cell.start-cell::before {
+    font-size: 0.45rem;
+  }
+}
+
+/* ---------------------------------------------
+   Reduced Motion
+   --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .board-cell,
+  .player-piece {
+    animation: none;
+    transition: none;
+  }
+  .board-cell.active-cell {
+    animation: none;
+  }
+  .player-piece {
+    animation: none;
+    scale: 1;
+  }
+}
