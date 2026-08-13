@@ -1,0 +1,346 @@
+/* =============================================
+   SNAKES & LADDERS — CHAOS EDITION
+   controls.css — Game Controls UI
+   ============================================= */
+
+/* ---------------------------------------------
+   Main Controls Container
+   --------------------------------------------- */
+#game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-large);
+  border: var(--border-subtle);
+}
+
+/* ---------------------------------------------
+   Dice Display
+   --------------------------------------------- */
+#dice {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-elevated);
+  border: var(--border-active);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-small), inset 0 0 12px rgba(0, 0, 0, 0.3);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  user-select: none;
+}
+
+/* ---------------------------------------------
+   Primary Action Buttons
+   --------------------------------------------- */
+#roll-dice,
+#power-button,
+#pass-button,
+#skip-button,
+#restart-game,
+#new-game {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-medium);
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: 1.4;
+  min-height: 48px;
+  min-width: 120px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  background: var(--accent-primary);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#roll-dice:hover,
+#power-button:hover,
+#pass-button:hover,
+#skip-button:hover,
+#restart-game:hover,
+#new-game:hover {
+  background: var(--accent-secondary);
+  box-shadow: 0 6px 20px rgba(0, 206, 201, 0.6);
+  transform: translateY(-2px);
+}
+
+#roll-dice:active,
+#power-button:active,
+#pass-button:active,
+#skip-button:active,
+#restart-game:active,
+#new-game:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#roll-dice:focus-visible,
+#power-button:focus-visible,
+#pass-button:focus-visible,
+#skip-button:focus-visible,
+#restart-game:focus-visible,
+#new-game:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------
+   Secondary Action Buttons
+   --------------------------------------------- */
+#open-settings,
+#play-again {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-medium);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  min-height: 44px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: var(--border-normal);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-small);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#open-settings:hover,
+#play-again:hover {
+  background: var(--bg-card);
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-1px);
+}
+
+#open-settings:active,
+#play-again:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-small);
+}
+
+#open-settings:focus-visible,
+#play-again:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------
+   Pass/Skip Button Specific
+   --------------------------------------------- */
+#pass-button,
+#skip-button {
+  background: var(--accent-warning);
+  color: #1a1a2e;
+  box-shadow: 0 4px 15px rgba(253, 203, 110, 0.4);
+}
+
+#pass-button:hover,
+#skip-button:hover {
+  background: var(--accent-yellow);
+  box-shadow: 0 6px 20px rgba(253, 203, 110, 0.6);
+}
+
+/* ---------------------------------------------
+   Danger/Reset Button Specific
+   --------------------------------------------- */
+#restart-game {
+  background: var(--accent-red);
+  box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4);
+}
+
+#restart-game:hover {
+  background: #e84393;
+  box-shadow: 0 6px 20px rgba(232, 67, 147, 0.6);
+}
+
+/* ---------------------------------------------
+   Button Groups
+   --------------------------------------------- */
+.button-group,
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.button-group .btn,
+.control-group .btn,
+.button-group button,
+.control-group button {
+  flex: 0 0 auto;
+}
+
+/* ---------------------------------------------
+   Button Variants (Extended)
+   --------------------------------------------- */
+.btn-lg {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-lg);
+  min-height: 56px;
+}
+
+.btn-sm {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  min-height: 36px;
+}
+
+.btn-icon {
+  min-width: 44px;
+  padding: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.btn-block {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Outline variant */
+.btn-outline {
+  background: transparent;
+  border: var(--border-active);
+  color: var(--accent-primary);
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+
+/* ---------------------------------------------
+   Disabled State (Global)
+   --------------------------------------------- */
+button:disabled,
+.btn:disabled,
+.btn.disabled,
+#roll-dice:disabled,
+#power-button:disabled,
+#pass-button:disabled,
+#skip-button:disabled,
+#restart-game:disabled,
+#new-game:disabled,
+#open-settings:disabled,
+#play-again:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-small);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border-color: var(--border-normal);
+}
+
+/* ---------------------------------------------
+   Focus Visible
+   --------------------------------------------- */
+button:focus-visible,
+.btn:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------
+   Responsive Adjustments
+   --------------------------------------------- */
+@media (max-width: 768px) {
+  #game-controls {
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+  #dice {
+    width: 60px;
+    height: 60px;
+    font-size: var(--text-xl);
+  }
+  #roll-dice,
+  #power-button,
+  #pass-button,
+  #skip-button,
+  #restart-game,
+  #new-game {
+    padding: var(--space-2) var(--space-3);
+    min-height: 44px;
+    min-width: 90px;
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  #game-controls {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  #dice {
+    margin: 0 auto;
+  }
+  #roll-dice,
+  #power-button,
+  #pass-button,
+  #skip-button,
+  #restart-game,
+  #new-game,
+  #open-settings,
+  #play-again {
+    width: 100%;
+    min-width: unset;
+  }
+  .button-group,
+  .control-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---------------------------------------------
+   Reduced Motion
+   --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  #roll-dice,
+  #power-button,
+  #pass-button,
+  #skip-button,
+  #restart-game,
+  #new-game,
+  #open-settings,
+  #play-again,
+  .btn,
+  .button-group button {
+    transition: none;
+  }
+  #roll-dice:hover,
+  #power-button:hover,
+  #pass-button:hover,
+  #skip-button:hover,
+  #restart-game:hover,
+  #new-game:hover,
+  #open-settings:hover,
+  #play-again:hover,
+  .btn:hover {
+    transform: none;
+  }
+}
