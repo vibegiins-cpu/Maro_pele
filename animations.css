@@ -1,0 +1,595 @@
+/* =============================================
+   SNAKES & LADDERS — CHAOS EDITION
+   animations.css — Animation System
+   ============================================= */
+
+/* ---------------------------------------------
+   Keyframes: Loading & Board
+   --------------------------------------------- */
+@keyframes loadingSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes loadingFadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes boardCellAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes boardCellStagger {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------
+   Keyframes: Player Pieces
+   --------------------------------------------- */
+@keyframes pieceAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pieceMove {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pieceJump {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-20px) scale(1.1); }
+  50% { transform: translateY(0) scale(1); }
+  70% { transform: translateY(-10px) scale(0.95); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes pieceGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--player-color, var(--accent-primary));
+  }
+  50% {
+    box-shadow: 0 0 16px var(--player-color, var(--accent-primary));
+  }
+}
+
+@keyframes pieceHighlight {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* ---------------------------------------------
+   Keyframes: Dice
+   --------------------------------------------- */
+@keyframes diceShake {
+  0% { transform: rotate(0deg) translateX(0); }
+  20% { transform: rotate(-10deg) translateX(-5px); }
+  40% { transform: rotate(10deg) translateX(5px); }
+  60% { transform: rotate(-8deg) translateX(-3px); }
+  80% { transform: rotate(8deg) translateX(3px); }
+  100% { transform: rotate(0deg) translateX(0); }
+}
+
+@keyframes diceRolling {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  25% { transform: rotateX(180deg) rotateY(90deg); }
+  50% { transform: rotateX(360deg) rotateY(180deg); }
+  75% { transform: rotateX(540deg) rotateY(270deg); }
+  100% { transform: rotateX(720deg) rotateY(360deg); }
+}
+
+@keyframes diceReveal {
+  0% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------
+   Keyframes: Movement Events
+   --------------------------------------------- */
+@keyframes snakeStrike {
+  0% {
+    filter: brightness(1);
+    transform: translateX(0);
+  }
+  25% {
+    filter: brightness(1.5);
+    transform: translateX(-4px);
+  }
+  50% {
+    filter: brightness(1.2);
+    transform: translateX(4px);
+  }
+  75% {
+    filter: brightness(1.4);
+    transform: translateX(-2px);
+  }
+  100% {
+    filter: brightness(1);
+    transform: translateX(0);
+  }
+}
+
+@keyframes ladderClimb {
+  0% {
+    filter: brightness(1);
+    transform: translateY(0);
+  }
+  40% {
+    filter: brightness(1.5);
+    transform: translateY(-6px);
+  }
+  60% {
+    filter: brightness(1.3);
+    transform: translateY(-3px);
+  }
+  100% {
+    filter: brightness(1);
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------
+   Keyframes: Highlighting
+   --------------------------------------------- */
+@keyframes cellActivePulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(108, 92, 231, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(108, 92, 231, 0.8);
+  }
+}
+
+@keyframes cellHighlight {
+  0% {
+    background-color: rgba(0, 206, 201, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes currentPlayerGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--player-color, var(--accent-primary));
+  }
+  50% {
+    box-shadow: 0 0 20px var(--player-color, var(--accent-primary));
+  }
+}
+
+/* ---------------------------------------------
+   Keyframes: Powers
+   --------------------------------------------- */
+@keyframes powerActivate {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes powerCardSelect {
+  0% {
+    transform: scale(1);
+    border-color: var(--border-normal);
+  }
+  50% {
+    transform: scale(1.05);
+    border-color: var(--accent-primary);
+  }
+  100% {
+    transform: scale(1);
+    border-color: var(--accent-primary);
+  }
+}
+
+@keyframes powerGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(108, 92, 231, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(108, 92, 231, 0.8);
+  }
+}
+
+/* ---------------------------------------------
+   Keyframes: UI Feedback
+   --------------------------------------------- */
+@keyframes buttonPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes toastIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes scoreChange {
+  0% {
+    transform: scale(1);
+    color: var(--text-secondary);
+  }
+  30% {
+    transform: scale(1.2);
+    color: var(--accent-yellow);
+  }
+  100% {
+    transform: scale(1);
+    color: var(--text-primary);
+  }
+}
+
+/* ---------------------------------------------
+   Keyframes: Effects
+   --------------------------------------------- */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+@keyframes bouncePop {
+  0% {
+    transform: scale(0.8);
+  }
+  40% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(253, 203, 110, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(253, 203, 110, 0.8);
+  }
+}
+
+@keyframes confettiDrop {
+  0% {
+    transform: translateY(-100%) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes victoryPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  75% {
+    transform: scale(1.05);
+  }
+}
+
+/* ---------------------------------------------
+   Animation Utility Classes
+   --------------------------------------------- */
+.anim-fade-in {
+  animation: pieceAppear 0.4s ease forwards;
+}
+
+.anim-pop {
+  animation: bouncePop 0.5s ease forwards;
+}
+
+.anim-shake {
+  animation: shake 0.5s ease forwards;
+}
+
+.anim-glow {
+  animation: glowPulse 1.5s ease infinite;
+}
+
+.anim-pulse {
+  animation: buttonPulse 1s ease infinite;
+}
+
+/* Specific animation triggers */
+.loading-spinner {
+  animation: loadingSpin 1s linear infinite;
+}
+
+#loading-screen.hidden {
+  animation: loadingFadeOut 0.5s ease forwards;
+}
+
+/* Board cells entrance */
+.board-cell {
+  animation: boardCellAppear 0.4s ease backwards;
+}
+
+/* Stagger board cells using nth-child delays */
+.board-cell:nth-child(1) { animation-delay: 0.01s; }
+.board-cell:nth-child(2) { animation-delay: 0.02s; }
+.board-cell:nth-child(3) { animation-delay: 0.03s; }
+.board-cell:nth-child(4) { animation-delay: 0.04s; }
+.board-cell:nth-child(5) { animation-delay: 0.05s; }
+.board-cell:nth-child(6) { animation-delay: 0.06s; }
+.board-cell:nth-child(7) { animation-delay: 0.07s; }
+.board-cell:nth-child(8) { animation-delay: 0.08s; }
+.board-cell:nth-child(9) { animation-delay: 0.09s; }
+.board-cell:nth-child(10) { animation-delay: 0.1s; }
+/* etc, but we can use a pattern for first row only for demo; real stagger via JS */
+
+/* Player pieces */
+.player-piece {
+  animation: pieceAppear 0.4s ease forwards;
+}
+
+.player-piece.anim-moving {
+  animation: pieceMove 0.6s ease;
+}
+
+.player-piece.anim-jump {
+  animation: pieceJump 0.8s ease;
+}
+
+/* Dice */
+#dice.rolling {
+  animation: diceRolling 1s ease infinite;
+}
+
+#dice.result {
+  animation: diceReveal 0.5s ease;
+}
+
+#dice.shaking {
+  animation: diceShake 0.5s ease;
+}
+
+/* Current player */
+.player-card.active-player,
+.player-card.current-player {
+  animation: currentPlayerGlow 2s ease infinite;
+}
+
+/* Active cell */
+.board-cell.active-cell {
+  animation: cellActivePulse 1.5s ease infinite;
+}
+
+.board-cell.highlighted-cell {
+  animation: cellHighlight 1s ease;
+}
+
+/* Snake and ladder events */
+.board-cell.snake-cell.anim-trigger,
+.board-cell.is-snake.anim-trigger {
+  animation: snakeStrike 0.6s ease;
+}
+
+.board-cell.ladder-cell.anim-trigger,
+.board-cell.is-ladder.anim-trigger {
+  animation: ladderClimb 0.8s ease;
+}
+
+/* Power cards */
+.power-card.anim-activate {
+  animation: powerActivate 0.5s ease;
+}
+
+.power-card.anim-select {
+  animation: powerCardSelect 0.3s ease forwards;
+}
+
+.power-card.anim-glow {
+  animation: powerGlow 1.5s ease infinite;
+}
+
+/* Modal animations */
+.modal:not(.hidden) .modal-content {
+  animation: pieceAppear 0.3s ease forwards;
+}
+
+/* Toast notifications */
+.toast {
+  animation: toastIn 0.4s ease forwards;
+}
+
+.toast.hiding {
+  animation: toastOut 0.4s ease forwards;
+}
+
+/* Score change */
+.score-change {
+  animation: scoreChange 0.6s ease;
+}
+
+/* Winner modal */
+#winner-modal .winner-icon {
+  animation: victoryPulse 1.5s ease infinite;
+}
+
+#winner-modal .winner-name {
+  animation: bouncePop 0.6s ease;
+}
+
+/* Confetti (if used) */
+.confetti {
+  animation: confettiDrop 3s ease-in forwards;
+}
+
+/* ---------------------------------------------
+   Reduced Motion Preference
+   --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Override specific animations to none where possible */
+  .loading-spinner {
+    animation: none;
+    border-top-color: var(--accent-primary);
+    border: 4px solid var(--accent-primary);
+  }
+  .board-cell {
+    animation: none;
+    opacity: 1;
+  }
+  .player-piece {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .player-piece.anim-moving,
+  .player-piece.anim-jump {
+    animation: none;
+  }
+  #dice.rolling {
+    animation: none;
+  }
+  #dice.result,
+  #dice.shaking {
+    animation: none;
+  }
+  .player-card.active-player,
+  .player-card.current-player {
+    animation: none;
+  }
+  .board-cell.active-cell {
+    animation: none;
+  }
+  .board-cell.highlighted-cell {
+    animation: none;
+  }
+  .board-cell.snake-cell.anim-trigger,
+  .board-cell.is-snake.anim-trigger,
+  .board-cell.ladder-cell.anim-trigger,
+  .board-cell.is-ladder.anim-trigger {
+    animation: none;
+  }
+  .power-card.anim-activate,
+  .power-card.anim-select,
+  .power-card.anim-glow {
+    animation: none;
+  }
+  .modal:not(.hidden) .modal-content {
+    animation: none;
+    transform: translateY(0);
+  }
+  .toast {
+    animation: none;
+  }
+  .toast.hiding {
+    animation: none;
+    opacity: 0;
+  }
+  .score-change {
+    animation: none;
+  }
+  #winner-modal .winner-icon {
+    animation: none;
+  }
+  #winner-modal .winner-name {
+    animation: none;
+  }
+  .confetti {
+    animation: none;
+    opacity: 0;
+  }
+}
