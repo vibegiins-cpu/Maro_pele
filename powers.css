@@ -1,0 +1,483 @@
+/* =============================================
+   SNAKES & LADDERS — CHAOS EDITION
+   powers.css — Power System UI
+   ============================================= */
+
+/* ---------------------------------------------
+   Power Status Container
+   --------------------------------------------- */
+#power-status-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* Generic power indicator inside status container */
+#power-status-container .power-indicator,
+#power-status-container .power-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.5;
+  background: var(--bg-elevated);
+  border: var(--border-normal);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------
+   Power Modal Body
+   --------------------------------------------- */
+#power-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Power grid/list inside modal */
+.power-grid,
+.power-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-3);
+  width: 100%;
+}
+
+/* Individual power card */
+.power-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--bg-card);
+  border: var(--border-normal);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-small);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  min-height: 140px;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.power-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05));
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Power card icon/emoji */
+.power-icon {
+  font-size: var(--text-2xl);
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+/* Power card title */
+.power-name {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+}
+
+/* Power card description */
+.power-description {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Hover effect */
+@media (hover: hover) and (pointer: fine) {
+  .power-card:hover {
+    background: var(--bg-elevated);
+    border-color: var(--border-active);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium), 0 0 12px rgba(108, 92, 231, 0.3);
+  }
+}
+
+/* Focus visible */
+.power-card:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+  border-color: var(--border-active);
+}
+
+/* Selected/active power card */
+.power-card.selected,
+.power-card.active {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 15px rgba(108, 92, 231, 0.5), var(--shadow-small);
+  background: var(--bg-elevated);
+}
+
+.power-card.selected::after,
+.power-card.active::after {
+  content: '✓';
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--accent-green);
+  text-shadow: 0 0 8px rgba(0, 184, 148, 0.8);
+}
+
+/* ---------------------------------------------
+   Power Type Variants
+   --------------------------------------------- */
+
+/* Beneficial powers */
+.power-card.beneficial,
+.power-card[data-type="beneficial"] {
+  border-left: 4px solid var(--accent-green);
+  background: linear-gradient(135deg, rgba(0, 184, 148, 0.12), var(--bg-card));
+}
+.power-card.beneficial:hover,
+.power-card[data-type="beneficial"]:hover {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 15px rgba(0, 184, 148, 0.4);
+}
+
+/* Harmful/offensive powers */
+.power-card.harmful,
+.power-card.offensive,
+.power-card[data-type="harmful"],
+.power-card[data-type="offensive"] {
+  border-left: 4px solid var(--accent-red);
+  background: linear-gradient(135deg, rgba(214, 48, 49, 0.12), var(--bg-card));
+}
+.power-card.harmful:hover,
+.power-card.offensive:hover,
+.power-card[data-type="harmful"]:hover,
+.power-card[data-type="offensive"]:hover {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 15px rgba(214, 48, 49, 0.4);
+}
+
+/* Defensive powers */
+.power-card.defensive,
+.power-card[data-type="defensive"] {
+  border-left: 4px solid var(--accent-cyan);
+  background: linear-gradient(135deg, rgba(0, 180, 216, 0.12), var(--bg-card));
+}
+.power-card.defensive:hover,
+.power-card[data-type="defensive"]:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+}
+
+/* Utility powers */
+.power-card.utility,
+.power-card[data-type="utility"] {
+  border-left: 4px solid var(--accent-yellow);
+  background: linear-gradient(135deg, rgba(253, 203, 110, 0.12), var(--bg-card));
+}
+.power-card.utility:hover,
+.power-card[data-type="utility"]:hover {
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 15px rgba(253, 203, 110, 0.4);
+}
+
+/* ---------------------------------------------
+   Power States
+   --------------------------------------------- */
+
+/* Locked power */
+.power-card.locked,
+.power-card[data-locked="true"] {
+  opacity: 0.5;
+  filter: grayscale(0.5);
+  cursor: not-allowed;
+  border-color: var(--border-subtle);
+  background: var(--bg-panel);
+}
+.power-card.locked::before,
+.power-card[data-locked="true"]::before {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--text-xl);
+  opacity: 0.8;
+  z-index: 1;
+}
+.power-card.locked > *,
+.power-card[data-locked="true"] > * {
+  visibility: hidden;
+}
+
+/* Unavailable power */
+.power-card.unavailable,
+.power-card[data-unavailable="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: var(--bg-panel);
+  border-color: var(--border-subtle);
+}
+
+/* Cooldown power */
+.power-card.cooldown,
+.power-card[data-cooldown="true"] {
+  opacity: 0.6;
+  cursor: wait;
+  border-color: var(--accent-orange);
+  background: linear-gradient(135deg, rgba(225, 112, 85, 0.1), var(--bg-card));
+}
+.power-card.cooldown::after,
+.power-card[data-cooldown="true"]::after {
+  content: attr(data-cooldown-turns);
+  position: absolute;
+  bottom: var(--space-2);
+  right: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--accent-orange);
+  background: rgba(0,0,0,0.5);
+  border-radius: var(--radius-pill);
+  padding: 2px 6px;
+}
+
+/* Disabled power */
+.power-card.disabled,
+.power-card[data-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.8);
+}
+
+/* Active power (currently in effect) */
+.power-card.active-power,
+.power-card[data-active="true"] {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 20px rgba(108, 92, 231, 0.6);
+}
+
+/* ---------------------------------------------
+   Power Buttons
+   --------------------------------------------- */
+.power-button,
+.power-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-medium);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  background: var(--bg-elevated);
+  border: var(--border-normal);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-small);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-align: center;
+  min-height: 48px;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.power-button:hover,
+.power-option:hover {
+  background: var(--bg-card);
+  border-color: var(--border-active);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.power-button:active,
+.power-option:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-small);
+}
+
+.power-button:focus-visible,
+.power-option:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+}
+
+.power-button:disabled,
+.power-option:disabled,
+.power-button.disabled,
+.power-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-small);
+}
+
+/* Beneficial power button */
+.power-button.beneficial,
+.power-option.beneficial {
+  background: linear-gradient(135deg, rgba(0, 184, 148, 0.2), var(--bg-elevated));
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+/* Harmful power button */
+.power-button.harmful,
+.power-button.offensive,
+.power-option.harmful,
+.power-option.offensive {
+  background: linear-gradient(135deg, rgba(214, 48, 49, 0.2), var(--bg-elevated));
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+/* Defensive power button */
+.power-button.defensive,
+.power-option.defensive {
+  background: linear-gradient(135deg, rgba(0, 180, 216, 0.2), var(--bg-elevated));
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* Utility power button */
+.power-button.utility,
+.power-option.utility {
+  background: linear-gradient(135deg, rgba(253, 203, 110, 0.2), var(--bg-elevated));
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
+}
+
+/* ---------------------------------------------
+   Modal Actions Layout
+   --------------------------------------------- */
+#power-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
+
+#power-modal-actions .power-button,
+#power-modal-actions .power-option {
+  flex: 1 1 auto;
+  max-width: 200px;
+}
+
+/* ---------------------------------------------
+   Power Status Display (Active Effects)
+   --------------------------------------------- */
+.power-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-panel);
+  border-radius: var(--radius-medium);
+  border: var(--border-subtle);
+}
+
+.power-status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  background: var(--bg-elevated);
+  border: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.power-status-item.active {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  box-shadow: 0 0 8px rgba(108, 92, 231, 0.5);
+}
+
+/* ---------------------------------------------
+   Responsive Adjustments
+   --------------------------------------------- */
+@media (max-width: 768px) {
+  .power-grid,
+  .power-list {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: var(--space-2);
+  }
+  .power-card {
+    padding: var(--space-3);
+    min-height: 120px;
+  }
+  .power-icon {
+    font-size: var(--text-xl);
+  }
+  .power-name {
+    font-size: var(--text-sm);
+  }
+  .power-description {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .power-grid,
+  .power-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+  .power-card {
+    padding: var(--space-2);
+    min-height: 100px;
+    gap: var(--space-1);
+  }
+  .power-icon {
+    font-size: var(--text-lg);
+  }
+  .power-name {
+    font-size: var(--text-xs);
+  }
+  .power-description {
+    font-size: 0.65rem;
+  }
+  .power-button,
+  .power-option {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+    min-height: 40px;
+  }
+  #power-modal-actions .power-button,
+  #power-modal-actions .power-option {
+    max-width: none;
+  }
+}
+
+/* ---------------------------------------------
+   Reduced Motion
+   --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .power-card,
+  .power-button,
+  .power-option,
+  .power-card::before,
+  .power-card::after {
+    transition: none;
+    animation: none;
+  }
+  .power-card:hover,
+  .power-button:hover,
+  .power-option:hover {
+    transform: none;
+  }
+}
