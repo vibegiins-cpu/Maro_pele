@@ -1,0 +1,400 @@
+/* =============================================
+   SNAKES & LADDERS — CHAOS EDITION
+   responsive.css — Final Responsive Layer
+   ============================================= */
+
+/* ---------------------------------------------
+   Global Overflow Safety
+   --------------------------------------------- */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* ---------------------------------------------
+   Touch Target Optimization
+   --------------------------------------------- */
+button,
+.btn,
+.power-card,
+.power-button,
+.power-option,
+.modal-close,
+.toast-action,
+.toast-close {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ---------------------------------------------
+   Very Large Desktop
+   --------------------------------------------- */
+@media (min-width: 1600px) {
+  #app {
+    max-width: 1600px;
+    padding: var(--space-6);
+  }
+  #game-board {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+/* ---------------------------------------------
+   Large Desktop / Laptop
+   --------------------------------------------- */
+@media (max-width: 1400px) {
+  #app {
+    max-width: 1200px;
+    padding: var(--space-5);
+  }
+}
+
+/* ---------------------------------------------
+   Tablet
+   --------------------------------------------- */
+@media (max-width: 1024px) {
+  #game-main {
+    flex-direction: column;
+  }
+  #board-section {
+    order: 1;
+  }
+  #players-panel {
+    order: 2;
+  }
+  #game-log-panel {
+    order: 3;
+  }
+  #special-game-area {
+    order: 4;
+  }
+  #game-board {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  #game-controls {
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------
+   Mobile (Portrait)
+   --------------------------------------------- */
+@media (max-width: 768px) {
+  #app {
+    padding: var(--space-3);
+    border-radius: var(--radius-large);
+  }
+
+  #game-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .brand,
+  .branding {
+    align-items: center;
+    text-align: center;
+  }
+
+  .turn-info {
+    justify-content: center;
+  }
+
+  .header-controls {
+    justify-content: center;
+  }
+
+  #game-board {
+    max-width: 100%;
+    padding: var(--space-2);
+    gap: 2px;
+  }
+
+  #players-panel,
+  #game-log-panel {
+    max-width: none;
+    width: 100%;
+  }
+
+  #player-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: none;
+  }
+
+  .player-card {
+    flex: 0 0 auto;
+    width: 200px;
+    min-height: 80px;
+  }
+
+  #game-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #dice {
+    margin: 0 auto;
+  }
+
+  #roll-dice,
+  #power-button,
+  #pass-button,
+  #skip-button,
+  #restart-game,
+  #new-game,
+  #open-settings,
+  #play-again {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .modal-content {
+    max-width: 100%;
+    padding: var(--space-4);
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal-actions button,
+  .modal-actions .btn {
+    width: 100%;
+    min-width: unset;
+  }
+
+  #toast-container {
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: var(--space-3);
+    align-items: center;
+  }
+
+  .toast {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* ---------------------------------------------
+   Small Mobile
+   --------------------------------------------- */
+@media (max-width: 480px) {
+  body {
+    padding: var(--space-2);
+  }
+
+  #app {
+    padding: var(--space-2);
+  }
+
+  .game-title,
+  .brand h1,
+  .branding h1 {
+    font-size: var(--text-lg);
+    white-space: normal;
+  }
+
+  .turn-info {
+    font-size: var(--text-xs);
+  }
+
+  .current-player,
+  .turn-counter {
+    font-size: var(--text-xs);
+  }
+
+  #game-board {
+    gap: 1px;
+    padding: var(--space-1);
+  }
+
+  .board-cell .cell-number,
+  .board-cell .square-number {
+    font-size: 0.55rem;
+  }
+
+  .player-card {
+    width: 160px;
+    padding: var(--space-2);
+  }
+
+  .player-avatar,
+  .player-token,
+  .player-color-indicator {
+    width: 32px;
+    height: 32px;
+    font-size: var(--text-xs);
+  }
+
+  .player-name {
+    font-size: var(--text-sm);
+  }
+
+  .power-grid,
+  .power-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .power-card {
+    padding: var(--space-2);
+    min-height: 100px;
+  }
+
+  .power-icon {
+    font-size: var(--text-lg);
+  }
+
+  .power-name {
+    font-size: var(--text-xs);
+  }
+
+  .power-description {
+    font-size: 0.65rem;
+  }
+}
+
+/* ---------------------------------------------
+   Extra Small Mobile
+   --------------------------------------------- */
+@media (max-width: 360px) {
+  #game-board {
+    gap: 0;
+    padding: var(--space-1);
+  }
+
+  .board-cell .cell-number,
+  .board-cell .square-number {
+    font-size: 0.5rem;
+    top: 1px;
+    left: 2px;
+  }
+
+  .player-piece {
+    width: 16px;
+    height: 16px;
+    border-width: 1px;
+    font-size: 0.45rem;
+  }
+
+  .power-grid,
+  .power-list {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-1);
+  }
+}
+
+/* ---------------------------------------------
+   Mobile Landscape Orientation
+   --------------------------------------------- */
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    padding: var(--space-2);
+  }
+
+  #app {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: var(--space-3);
+  }
+
+  #game-header {
+    flex: 1 1 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .brand,
+  .branding {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .turn-info {
+    justify-content: flex-start;
+  }
+
+  .header-controls {
+    justify-content: flex-end;
+  }
+
+  #game-main {
+    flex: 1 1 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  #board-section {
+    flex: 2 1 60%;
+    order: 1;
+  }
+
+  #players-panel,
+  #game-log-panel {
+    flex: 1 1 30%;
+    order: 2;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  #special-game-area {
+    flex: 1 1 100%;
+    order: 3;
+  }
+
+  #game-board {
+    max-width: 60vh;
+    margin: 0 auto;
+    padding: var(--space-1);
+  }
+
+  #game-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #dice {
+    width: 50px;
+    height: 50px;
+    font-size: var(--text-lg);
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    max-width: 80vw;
+  }
+
+  #toast-container {
+    bottom: var(--space-2);
+    right: var(--space-2);
+    left: auto;
+  }
+}
+
+/* ---------------------------------------------
+   Reduced Motion (only if not already handled)
+   --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
