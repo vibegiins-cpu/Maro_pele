@@ -1,0 +1,450 @@
+/* =============================================
+   SNAKES & LADDERS — CHAOS EDITION
+   players.css — Player Panel & Player Cards
+   ============================================= */
+
+/* ---------------------------------------------
+   Players Panel Container
+   --------------------------------------------- */
+#players-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  overflow: hidden;
+}
+
+#players-panel h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-subtle);
+  font-size: var(--text-lg);
+  letter-spacing: 0.5px;
+}
+
+#players-panel h2::after {
+  content: '🎮';
+  font-size: var(--text-base);
+  opacity: 0.8;
+  margin-left: auto;
+}
+
+/* Player list container */
+#player-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  overflow-y: auto;
+  max-height: none;
+  padding-right: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-primary) transparent;
+}
+
+#player-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#player-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#player-list::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: var(--radius-pill);
+}
+
+/* ---------------------------------------------
+   Player Card Base
+   --------------------------------------------- */
+.player-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border: var(--border-normal);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-small);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease,
+    opacity 0.3s ease;
+  cursor: default;
+  overflow: hidden;
+  min-height: 70px;
+  isolation: isolate;
+}
+
+/* Subtle left accent bar by player color */
+.player-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--player-color, var(--text-muted));
+  z-index: -1;
+  transition: width 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover effect */
+@media (hover: hover) and (pointer: fine) {
+  .player-card:hover {
+    background: var(--bg-elevated);
+    border-color: var(--border-active);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .player-card:hover::before {
+    width: 6px;
+  }
+}
+
+/* Focus visible for keyboard */
+.player-card:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: -2px;
+  border-color: var(--border-active);
+}
+
+/* ---------------------------------------------
+   Player Color Variants
+   --------------------------------------------- */
+.player-card.player-1,
+.player-card[data-player="1"] {
+  --player-color: var(--player-1);
+}
+.player-card.player-2,
+.player-card[data-player="2"] {
+  --player-color: var(--player-2);
+}
+.player-card.player-3,
+.player-card[data-player="3"] {
+  --player-color: var(--player-3);
+}
+.player-card.player-4,
+.player-card[data-player="4"] {
+  --player-color: var(--player-4);
+}
+
+/* ---------------------------------------------
+   Avatar / Token
+   --------------------------------------------- */
+.player-avatar,
+.player-token,
+.player-color-indicator {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--player-color, var(--accent-primary));
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 10px var(--player-color, var(--accent-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Emoji or fallback avatar text inside */
+.player-avatar span,
+.player-avatar .avatar-initial {
+  font-size: var(--text-sm);
+  line-height: 1;
+}
+
+/* ---------------------------------------------
+   Player Info
+   --------------------------------------------- */
+.player-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.player-name {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.3px;
+}
+
+.player-status-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.player-position {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.player-score {
+  font-weight: 600;
+  color: var(--accent-yellow);
+}
+
+.player-status {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---------------------------------------------
+   Power / Effect Indicators
+   --------------------------------------------- */
+.player-powers,
+.power-badges,
+.player-effects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.power-indicator,
+.power-badge,
+.status-effect-badge,
+.shield-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.4;
+  background: var(--bg-elevated);
+  border: var(--border-subtle);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.shield-badge {
+  background: rgba(0, 180, 216, 0.15);
+  border-color: rgba(0, 180, 216, 0.4);
+  color: var(--accent-cyan);
+}
+
+.power-indicator.beneficial {
+  background: rgba(0, 184, 148, 0.15);
+  border-color: rgba(0, 184, 148, 0.4);
+  color: var(--accent-green);
+}
+
+.power-indicator.harmful {
+  background: rgba(214, 48, 49, 0.15);
+  border-color: rgba(214, 48, 49, 0.4);
+  color: var(--accent-red);
+}
+
+/* ---------------------------------------------
+   Current / Active Player State
+   --------------------------------------------- */
+.player-card.active-player,
+.player-card.current-player,
+.player-card.current {
+  background: var(--bg-elevated);
+  border-color: var(--player-color, var(--accent-primary));
+  box-shadow:
+    0 0 12px var(--player-color, var(--accent-primary)),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.player-card.active-player::before,
+.player-card.current-player::before,
+.player-card.current::before {
+  width: 6px;
+  box-shadow: 0 0 10px var(--player-color, var(--accent-primary));
+}
+
+.player-card.active-player .player-avatar,
+.player-card.current-player .player-avatar,
+.player-card.current .player-avatar,
+.player-card.active-player .player-token,
+.player-card.current-player .player-token,
+.player-card.current .player-token {
+  border-color: #fff;
+  box-shadow:
+    0 0 12px var(--player-color, var(--accent-primary)),
+    0 0 20px var(--player-color, var(--accent-primary));
+}
+
+/* Active player name glow */
+.player-card.active-player .player-name,
+.player-card.current-player .player-name,
+.player-card.current .player-name {
+  color: #fff;
+  text-shadow: 0 0 8px var(--player-color, var(--accent-primary));
+}
+
+/* ---------------------------------------------
+   Eliminated / Disabled Player
+   --------------------------------------------- */
+.player-card.eliminated,
+.player-card.disabled,
+.player-card[data-eliminated="true"] {
+  opacity: 0.55;
+  filter: grayscale(0.6);
+  pointer-events: none;
+}
+
+.player-card.eliminated::after,
+.player-card.disabled::after {
+  content: '✖';
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  font-size: var(--text-lg);
+  color: var(--danger);
+  opacity: 0.8;
+}
+
+/* ---------------------------------------------
+   Winner State
+   --------------------------------------------- */
+.player-card.winner,
+.player-card[data-winner="true"] {
+  border-color: var(--accent-yellow);
+  background: linear-gradient(135deg, rgba(253, 203, 110, 0.2), rgba(108, 92, 231, 0.25));
+  box-shadow:
+    0 0 15px rgba(253, 203, 110, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.player-card.winner::before,
+.player-card[data-winner="true"]::before {
+  background: var(--accent-yellow);
+  box-shadow: 0 0 10px var(--accent-yellow);
+}
+
+.player-card.winner .player-avatar,
+.player-card.winner .player-token {
+  border-color: #ffd700;
+  box-shadow:
+    0 0 15px rgba(253, 203, 110, 0.7),
+    0 0 25px rgba(253, 203, 110, 0.5);
+}
+
+/* Trophy badge for winner */
+.player-card.winner .player-info::after {
+  content: '🏆';
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-3);
+  font-size: var(--text-lg);
+  animation: none;
+}
+
+/* ---------------------------------------------
+   Responsive Adjustments
+   --------------------------------------------- */
+@media (max-width: 1024px) {
+  #players-panel {
+    max-width: none;
+  }
+  .player-card {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+    min-height: 60px;
+  }
+  .player-avatar,
+  .player-token,
+  .player-color-indicator {
+    width: 36px;
+    height: 36px;
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  #players-panel {
+    order: 2;
+  }
+  #player-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: none;
+    padding-bottom: var(--space-2);
+  }
+  .player-card {
+    flex: 0 0 auto;
+    width: 200px;
+    min-height: 80px;
+  }
+  .player-card.winner .player-info::after {
+    right: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .player-card {
+    width: 160px;
+    padding: var(--space-2);
+    gap: var(--space-1);
+    min-height: 70px;
+  }
+  .player-avatar,
+  .player-token,
+  .player-color-indicator {
+    width: 32px;
+    height: 32px;
+    font-size: var(--text-xs);
+  }
+  .player-name {
+    font-size: var(--text-sm);
+  }
+  .player-status-row {
+    font-size: 0.65rem;
+    gap: var(--space-1);
+  }
+  .power-indicator,
+  .power-badge,
+  .status-effect-badge,
+  .shield-badge {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+  }
+}
+
+/* ---------------------------------------------
+   Reduced Motion
+   --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .player-card,
+  .player-avatar,
+  .player-token,
+  .player-color-indicator,
+  .player-card::before {
+    transition: none;
+  }
+  .player-card:hover {
+    transform: none;
+  }
+}
