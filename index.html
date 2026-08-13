@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Snakes & Ladders — Chaos Edition: a modular, responsive board game with powers, events, challenges, and multiplayer.">
+  <meta name="theme-color" content="#1a1a2e">
+  <title>Snakes & Ladders — Chaos Edition</title>
+
+  <!-- Future stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/board.css">
+  <link rel="stylesheet" href="css/players.css">
+  <link rel="stylesheet" href="css/powers.css">
+  <link rel="stylesheet" href="css/events.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- ============================================= -->
+  <!-- MAIN APPLICATION CONTAINER                   -->
+  <!-- ============================================= -->
+  <div id="app">
+
+    <!-- =========================================== -->
+    <!-- HEADER                                      -->
+    <!-- =========================================== -->
+    <header id="game-header">
+      <div class="brand">
+        <h1>🐍 Snakes &amp; Ladders</h1>
+        <p class="subtitle">Chaos Edition</p>
+      </div>
+
+      <div class="turn-info" aria-live="polite">
+        <p>Current Player: <span id="current-player-name"></span></p>
+        <p>Turn: <span id="turn-number"></span></p>
+      </div>
+
+      <div class="header-controls">
+        <button type="button" id="restart-game" aria-label="Restart game">🔄 Restart</button>
+        <button type="button" id="open-settings" aria-label="Open settings">⚙️ Settings</button>
+      </div>
+    </header>
+
+    <!-- =========================================== -->
+    <!-- MAIN GAME AREA                              -->
+    <!-- =========================================== -->
+    <main id="game-main">
+
+      <!-- ========================================= -->
+      <!-- BOARD SECTION                              -->
+      <!-- ========================================= -->
+      <section id="board-section" aria-label="Game board section">
+
+        <!-- JavaScript will generate the 100 board squares here -->
+        <div id="game-board" role="grid" aria-label="Snakes and Ladders game board with 100 squares"></div>
+
+        <!-- ======================================= -->
+        <!-- DICE / TURN CONTROLS                    -->
+        <!-- ======================================= -->
+        <section id="game-controls" aria-label="Dice and turn controls">
+          <div id="dice" aria-hidden="true">🎲</div>
+
+          <button type="button" id="roll-dice" aria-label="Roll dice">🎲 Roll Dice</button>
+
+          <div id="game-status" aria-live="polite">Player 1's turn</div>
+        </section>
+      </section>
+
+      <!-- ========================================= -->
+      <!-- PLAYER PANEL                               -->
+      <!-- ========================================= -->
+      <aside id="players-panel" aria-labelledby="players-title">
+        <h2 id="players-title">Players</h2>
+        <!-- JavaScript will dynamically create player cards here -->
+        <div id="player-list"></div>
+      </aside>
+
+      <!-- ========================================= -->
+      <!-- GAME LOG                                   -->
+      <!-- ========================================= -->
+      <aside id="game-log-panel" aria-labelledby="game-log-title">
+        <h2 id="game-log-title">📜 Game Log</h2>
+        <!-- JavaScript will dynamically insert game events here -->
+        <div id="game-log" aria-live="polite"></div>
+      </aside>
+
+      <!-- ========================================= -->
+      <!-- FUTURE SPECIAL SYSTEM CONTAINERS           -->
+      <!-- ========================================= -->
+      <section id="special-game-area" aria-live="polite" aria-label="Special game information">
+        <div id="event-container"></div>
+        <div id="challenge-container"></div>
+        <div id="power-status-container"></div>
+      </section>
+
+    </main>
+
+    <!-- =========================================== -->
+    <!-- FOOTER                                      -->
+    <!-- =========================================== -->
+    <footer id="game-footer">
+      <p>Snakes &amp; Ladders — Chaos Edition</p>
+    </footer>
+
+  </div>
+
+  <!-- ============================================= -->
+  <!-- MODAL SYSTEM                                  -->
+  <!-- ============================================= -->
+  <div id="modal-root">
+
+    <!-- Power Selection Modal -->
+    <div id="power-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="power-modal-title">
+      <div class="modal-backdrop" aria-hidden="true"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="power-modal-title">Choose a Power</h2>
+          <button type="button" class="modal-close" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="power-modal-body"></div>
+        <div class="modal-actions" id="power-modal-actions"></div>
+      </div>
+    </div>
+
+    <!-- Random Event Modal -->
+    <div id="event-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+      <div class="modal-backdrop" aria-hidden="true"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="event-modal-title">Random Event</h2>
+          <button type="button" class="modal-close" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="event-modal-body"></div>
+        <div class="modal-actions" id="event-modal-actions"></div>
+      </div>
+    </div>
+
+    <!-- Challenge Modal -->
+    <div id="challenge-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="challenge-modal-title">
+      <div class="modal-backdrop" aria-hidden="true"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="challenge-modal-title">Challenge</h2>
+          <button type="button" class="modal-close" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="challenge-modal-body"></div>
+        <div class="modal-actions" id="challenge-modal-actions"></div>
+      </div>
+    </div>
+
+    <!-- Winner Modal -->
+    <div id="winner-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="winner-modal-title">
+      <div class="modal-backdrop" aria-hidden="true"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="winner-modal-title">🏆 Victory!</h2>
+        </div>
+        <div class="modal-body">
+          <div class="winner-icon" aria-hidden="true">🏆</div>
+          <p class="winner-name" id="winner-player-name"></p>
+          <p class="winner-message">Congratulations! You reached square 100.</p>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="play-again">🔄 Play Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+      <div class="modal-backdrop" aria-hidden="true"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="settings-modal-title">Settings</h2>
+          <button type="button" class="modal-close" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="settings-modal-body">
+          <p>Settings coming soon.</p>
+        </div>
+        <div class="modal-actions" id="settings-modal-actions"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================= -->
+  <!-- TOAST / NOTIFICATION SYSTEM                   -->
+  <!-- ============================================= -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ============================================= -->
+  <!-- LOADING SCREEN                                -->
+  <!-- ============================================= -->
+  <div id="loading-screen" role="status" aria-live="polite">
+    <div class="loading-content">
+      <p class="loading-title">🐍 Snakes &amp; Ladders</p>
+      <p class="loading-subtitle">Chaos Edition</p>
+      <div class="loading-spinner" aria-hidden="true"></div>
+      <p class="loading-text">Loading game...</p>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- ES6 MODULE ENTRY POINT                        -->
+  <!-- ============================================= -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
